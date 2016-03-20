@@ -1,0 +1,126 @@
+<html>
+<head>
+    <style type="text/css">
+        body {
+            background: black;
+        }
+
+        #input-block {
+            text-align: left;
+        }
+
+        div.text,
+        div.blinker {
+            display: inline-block;
+        }
+        @keyframes blink{
+            to{visibility: hidden;}
+        }
+        div.blinker{
+            position: relative;
+            top: 50%;
+            transform: translateY(20%);
+        }
+        #blinker{
+            animation: blink 1s steps(5, start) infinite;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+var commands = {"help":"help.js", "clear":"reload.js"}
+function getInput(){
+    var text = "";
+    document.onkeydown = function myKeyPress(e){
+        var keynum;
+        if(window.event) {
+            keynum = e.keyCode;
+        }
+        else if(e.which){
+            keynum = e.which;
+        }
+        if(keynum == 13){
+            var script = document.getElementById("appendable");
+            switch(text){
+                case "help":
+                    script.src = "help.js";
+                    break;
+                case  "clear":
+                    script.src = "reload.js";
+                    break;
+                case "about":
+                    script.src = "about.js";
+                    break;
+                case "contact":
+                    script.src = "contact.js";
+                    break;
+                case "previouswork":
+                    script.src = "previouswork.js";
+                    break;
+                default:
+                    script.src = "default.js"
+            }
+            text = "";
+        }
+        else if (keynum == 8) {
+            var div = document.getElementById("text");
+            if (div.innerHTML.slice(-1) != "$") {
+                div.innerHTML = div.innerHTML.slice(0, -1);
+            }
+            text = text.slice(0, -1);
+        }
+        else{
+            var div = document.getElementById("text");
+            if (keynum != 16) {
+                if(keynum >= 65 && keynum <= 90){
+                    text = text.concat(String.fromCharCode(keynum+32));
+                    if(e.shiftKey){
+                        div.innerHTML = div.innerHTML + String.fromCharCode(keynum);
+                    }
+                    else {
+                        div.innerHTML = div.innerHTML + String.fromCharCode(keynum+32);
+                    }
+                }
+            }
+        }
+    }
+}
+function reset(){
+    var input = document.getElementById("input-block");
+    var oldText = document.getElementById("text");
+    var oldBlinker = document.getElementById("blinker");
+    var oldAppendable = document.getElementById("appendable");
+    oldText.id = Math.random();
+    oldBlinker.style.backgroundColor = "black";
+    oldBlinker.id = Math.random();
+    oldAppendable.id = Math.random();
+    var newText = document.createElement("div");
+    newText.style.color = "green";
+    newText.innerHTML = ("home@justincovell.net ~ $ ");
+    newText.id = "text";
+    newText.className = "text";
+    var newBlinker = document.createElement("div");
+    newBlinker.style.width = "10px";
+    newBlinker.style.height = "20px";
+    newBlinker.style.backgroundColor = "green";
+    newBlinker.style.border = "0px";
+    newBlinker.id = "blinker";
+    newBlinker.className = "blinker";
+    var newAppendable = document.createElement("script");
+    newAppendable.id = "appendable";
+    newAppendable.className = "appendable";
+    input.appendChild(newText);
+    input.appendChild(newBlinker);
+    input.appendChild(newAppendable);
+}
+function addDefault(){
+
+}
+</script>
+<body onload="getInput()" link="green">
+    <div id="input-block">
+        <div id="text" class="text" style="color: green;">home@justincovell.net ~ $ </div>
+        <div id="blinker" class="text" style="width: 10px; height:20px; background-color: green; border:0px;"></div>
+        <script id="appendable" class="appendable"></script>
+    </div>
+</body>
+</html>
