@@ -1,4 +1,5 @@
 function doInput(input){
+    //Allow manual triggering of scripts
     var script = document.getElementById("appendable");
     switch(input){
         case "help":
@@ -21,6 +22,7 @@ function doInput(input){
     }
 }
 function getInput(){
+    //Constantly keeps track of what the user is typing
     var text = "";
     document.onkeydown = function myKeyPress(e){
         var keynum;
@@ -61,9 +63,13 @@ function getInput(){
         }
         else{
             var div = document.getElementById("text");
+            //Ignores shift key
             if (keynum != 16) {
+                //Checks to see if it is a character
                 if(keynum >= 65 && keynum <= 90){
+                    //Always use lowercase for logic
                     text = text.concat(String.fromCharCode(keynum+32));
+                    //Display capital letters if shift is pressed, lower case else
                     if(e.shiftKey){
                         div.innerHTML = div.innerHTML.concat(String.fromCharCode(keynum));
                     }
@@ -84,6 +90,7 @@ function getInput(){
     }
 }
 function reset(){
+    //Changes all divs to random id's and adds new ones with new id's
     var input = document.getElementById("input-block");
     var oldText = document.getElementById("text");
     var oldBlinker = document.getElementById("blinker");
