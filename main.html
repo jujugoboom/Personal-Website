@@ -3,14 +3,51 @@
     <style type="text/css">
         body {
             background: black;
+            font-family: "Courier New";
         }
 
         #input-block {
             text-align: left;
         }
+        a {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: button;
+            background-color: black;
+            color: green;
+            border: none;
+            outline: none;
+            text-align: center;
+            border-radius: 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: underline;
+            font-family: "Courier New";
+            font-size: 16px;
+        }
+        button{
+            background-color: black;
+            color: green;
+            border: none;
+            outline: none;
+            text-align: center;
+            border-radius: 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: underline;
+            font-family: "Courier New";
+            font-size: 16px;
+        }
+
+        button:hover{
+            background-color: green;
+            color: black;
+            text-decoration: none;
+        }
 
         div.text,
-        div.blinker {
+        div.blinker,
+        div.head {
             display: inline-block;
         }
         @keyframes blink{
@@ -27,7 +64,28 @@
     </style>
 </head>
 <script type="text/javascript">
-var commands = {"help":"help.js", "clear":"reload.js"}
+function doInput(input){
+    var script = document.getElementById("appendable");
+    switch(input){
+        case "help":
+            script.src = "help.js";
+            break;
+        case  "clear":
+            script.src = "reload.js";
+            break;
+        case "about":
+            script.src = "about.js";
+            break;
+        case "contact":
+            script.src = "contact.js";
+            break;
+        case "previouswork":
+            script.src = "previouswork.js";
+            break;
+        default:
+            script.src = "default.js"
+    }
+}
 function getInput(){
     var text = "";
     document.onkeydown = function myKeyPress(e){
@@ -49,7 +107,7 @@ function getInput(){
                     break;
                 case "about":
                     script.src = "about.js";
-                    break;
+                    break;a
                 case "contact":
                     script.src = "contact.js";
                     break;
@@ -63,10 +121,9 @@ function getInput(){
         }
         else if (keynum == 8) {
             var div = document.getElementById("text");
-            if (div.innerHTML.slice(-1) != "$") {
-                div.innerHTML = div.innerHTML.slice(0, -1);
-            }
+            div.innerHTML = div.innerHTML.slice(0, -1);
             text = text.slice(0, -1);
+            e.preventDefault();
         }
         else{
             var div = document.getElementById("text");
@@ -74,11 +131,19 @@ function getInput(){
                 if(keynum >= 65 && keynum <= 90){
                     text = text.concat(String.fromCharCode(keynum+32));
                     if(e.shiftKey){
-                        div.innerHTML = div.innerHTML + String.fromCharCode(keynum);
+                        div.innerHTML = div.innerHTML.concat(String.fromCharCode(keynum));
                     }
                     else {
-                        div.innerHTML = div.innerHTML + String.fromCharCode(keynum+32);
+                        div.innerHTML = div.innerHTML.concat(String.fromCharCode(keynum+32));
                     }
+                }
+                else if (keynum==32) {
+                    text = text.concat(" ");
+                    div.innerHTML = div.innerHTML.concat(" ")
+                }
+                else{
+                    text = text.concat(String.fromCharCode(keynum));
+                    div.innerHTML = div.innerHTML.concat(String.fromCharCode(keynum));
                 }
             }
         }
@@ -93,11 +158,16 @@ function reset(){
     oldBlinker.style.backgroundColor = "black";
     oldBlinker.id = Math.random();
     oldAppendable.id = Math.random();
+    var newHead = document.createElement("div");
+    newHead.style.color = "green";
+    newHead.innerHTML = ("home@justincovell.net ~ $ &thinsp;");
+    newHead.id = "head";
+    newHead.className = "head";
     var newText = document.createElement("div");
     newText.style.color = "green";
-    newText.innerHTML = ("home@justincovell.net ~ $ ");
     newText.id = "text";
     newText.className = "text";
+    newText.innerHTML = " ";
     var newBlinker = document.createElement("div");
     newBlinker.style.width = "10px";
     newBlinker.style.height = "20px";
@@ -108,18 +178,19 @@ function reset(){
     var newAppendable = document.createElement("script");
     newAppendable.id = "appendable";
     newAppendable.className = "appendable";
+    input.appendChild(newHead);
     input.appendChild(newText);
     input.appendChild(newBlinker);
     input.appendChild(newAppendable);
-}
-function addDefault(){
-
+    window.scrollTo(0,document.body.scrollHeight);
 }
 </script>
-<body onload="getInput()" link="green">
+<body onload="getInput()" link="green" vlink="green">
     <div id="input-block">
-        <div id="text" class="text" style="color: green;">home@justincovell.net ~ $ </div>
-        <div id="blinker" class="text" style="width: 10px; height:20px; background-color: green; border:0px;"></div>
+        <script src="help.js"></script>
+        <div id="head" class="head" style="color: green;">home@justincovell.net ~ $</div>
+        <div id="text" class="text" style="color: green;"></div>
+        <div id="blinker" class="blinker" style="width: 10px; height:20px; background-color: green; border:0px;"></div>
         <script id="appendable" class="appendable"></script>
     </div>
 </body>
