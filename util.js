@@ -24,6 +24,7 @@ function doInput(input){
 function getInput(){
     //Constantly keeps track of what the user is typing
     var text = "";
+    //Use onkeydown for compatibility
     document.onkeydown = function myKeyPress(e){
         var keynum;
         if(window.event) {
@@ -32,6 +33,7 @@ function getInput(){
         else if(e.which){
             keynum = e.which;
         }
+        //Handle enter key as submit
         if(keynum == 13){
             var script = document.getElementById("appendable");
             switch(text){
@@ -55,6 +57,7 @@ function getInput(){
             }
             text = "";
         }
+        //Use backspace to erase characters
         else if (keynum == 8) {
             var div = document.getElementById("text");
             div.innerHTML = div.innerHTML.slice(0, -1);
@@ -77,10 +80,12 @@ function getInput(){
                         div.innerHTML = div.innerHTML.concat(String.fromCharCode(keynum+32));
                     }
                 }
+                //If key is a space, add a space
                 else if (keynum==32) {
                     text = text.concat(" ");
                     div.innerHTML = div.innerHTML.concat(" ")
                 }
+                //Just allow other characters to be displayed how they are
                 else{
                     text = text.concat(String.fromCharCode(keynum));
                     div.innerHTML = div.innerHTML.concat(String.fromCharCode(keynum));
@@ -95,7 +100,13 @@ function reset(){
     var oldText = document.getElementById("text");
     var oldBlinker = document.getElementById("blinker");
     var oldAppendable = document.getElementById("appendable");
-    oldText.id = Math.random();
+    //Avoid errors if the element does not exist
+    try {
+        oldText.id = Math.random();
+    }
+    catch(e){
+        return;
+    }
     oldBlinker.style.backgroundColor = "black";
     oldBlinker.id = Math.random();
     oldAppendable.id = Math.random();
@@ -113,6 +124,7 @@ function reset(){
     var newAppendable = document.createElement("script");
     newAppendable.id = "appendable";
     newAppendable.className = "appendable";
+    //Append to div in correct order
     input.appendChild(newHead);
     input.appendChild(newText);
     input.appendChild(newBlinker);
