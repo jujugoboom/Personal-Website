@@ -45,7 +45,7 @@ function getInput(){
                     break;
                 case "about":
                     script.src = "about.js";
-                    break;a
+                    break;
                 case "contact":
                     script.src = "contact.js";
                     break;
