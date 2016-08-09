@@ -17,6 +17,9 @@ function doInput(input){
         case "previouswork":
             script.src = "previouswork.js";
             break;
+        case "exit":
+            window.close();
+            break;
         default:
             script.src = "default.js"
     }
