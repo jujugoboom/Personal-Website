@@ -38,26 +38,7 @@ function getInput(){
         }
         //Handle enter key as submit
         if(keynum == 13){
-            var script = document.getElementById("appendable");
-            switch(text){
-                case "help":
-                    script.src = "help.js";
-                    break;
-                case  "clear":
-                    script.src = "reload.js";
-                    break;
-                case "about":
-                    script.src = "about.js";
-                    break;
-                case "contact":
-                    script.src = "contact.js";
-                    break;
-                case "previouswork":
-                    script.src = "previouswork.js";
-                    break;
-                default:
-                    script.src = "default.js"
-            }
+            doInput(text);
             text = "";
         }
         //Use backspace to erase characters
