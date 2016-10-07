@@ -20,6 +20,9 @@ function doInput(input){
         case "exit":
             window.close();
             break;
+        case "rain":
+            script.src = "rainstart.js";
+            break;
         default:
             script.src = "default.js"
     }

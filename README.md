@@ -1,0 +1,1 @@
+Simple personal website made from the ground up by me. Includes simple "rain sound generator". Nearly everything for the rain sound generator is other people's work. The rain animation all comes from Delapierre Rodolphe's codepen at https://codepen.io/Sheepeuh/pen/cFazd. The rain sound is from http://mc2method.org/ and is the 10 minute version of their "Rain 2".
