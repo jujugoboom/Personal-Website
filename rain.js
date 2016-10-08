@@ -217,10 +217,7 @@ function Screenshot() {
 }
 
 window.onload = function() {
-    rainSound = document.createElement("AUDIO");
-    rainSound.setAttribute("src", "rain.mp3");
-    rainSound.setAttribute("loop", true);
-    document.body.appendChild(rainSound);
+    rainSound = document.getElementById("rainSound")
 };
 
 (function boucle() {
