@@ -12,6 +12,8 @@ window.setTimeout(callback, 1000/60);
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
+var rainSoundStart = false;
+var rainSound = null;
 var width = 0;
 var height = 0;
 
@@ -72,6 +74,10 @@ function Rain(X, Y, nombre) {
 }
 
 function explosion(X, Y, couleur, nombre) {
+    if(!rainSoundStart){
+        rainSound.play();
+        rainSoundStart = !rainSoundStart;
+    }
 	if (!nombre) {
 		nombre = nombrebase;
 	}
@@ -211,9 +217,8 @@ function Screenshot() {
 }
 
 window.onload = function() {
-    var rainSound = document.createElement("AUDIO");
+    rainSound = document.createElement("AUDIO");
     rainSound.setAttribute("src", "rain.mp3");
-    rainSound.setAttribute("autoPlay", true);
     rainSound.setAttribute("loop", true);
     document.body.appendChild(rainSound);
 };
