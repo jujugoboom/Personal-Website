@@ -225,3 +225,11 @@ window.onload = function() {
 	update();
 	rendu(ctx);
 })();
+
+function stopRain() {
+    var resetDiv = document.getElementById("reset")
+    var script = document.createElement("script");
+    script.type = 'text/javascript';
+    script.src = "reload.js";
+    resetDiv.appendChild(script);
+}
