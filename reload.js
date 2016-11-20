@@ -36,9 +36,9 @@ function startreload(){
 
 function reload(element){
     element.innerHTML = "";
-    var content = document.createElement("p");
-    content.innerHTML = "Available commands: <button onclick=doInput('about')>about</button>, <button onclick=doInput('contact')>contact</button>, <button onclick=doInput('clear')>clear</button>, <button onclick=doInput('help')>help</button>, <button onclick=doInput('previouswork')>previousWork</button>";
-    element.appendChild(content);
+    var script = document.createElement("script");
+    script.innerHTML = "help();";
+    element.appendChild(script);
     var head = document.createElement('div');
     head.id = 'head';
     head.className = 'head';

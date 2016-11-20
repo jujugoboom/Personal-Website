@@ -43,9 +43,6 @@ function doInput(input){
                 appendable.innerHTML = "previouswork()";
             }
             break;
-        case "exit":
-            window.close();
-            break;
         case "rain":
             if(!hasScript(head, "rainstart.js")){
                 addScript(head, "rainstart.js");
