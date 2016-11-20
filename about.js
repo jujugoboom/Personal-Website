@@ -1,5 +1,12 @@
-var input = document.getElementById("input-block");
-var content = document.createElement("p");
-content.innerHTML = "I am a college student studying computer science. I currently live in Maryland, and go to school at the University of Maryland";
-input.appendChild(content);
-reset();
+var appendable = document.getElementById("appendable");
+if (appendable) {
+    appendable.innerHTML = "about();";
+}
+
+function about(){
+    var input = document.getElementById("input-block");
+    var content = document.createElement("p");
+    content.innerHTML = "I am a college student studying computer science. I currently live in Maryland, and go to school at the University of Maryland";
+    input.appendChild(content);
+    reset();
+}

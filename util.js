@@ -1,30 +1,64 @@
 function doInput(input){
     //Allow manual triggering of scripts
-    var script = document.getElementById("appendable");
+    var head = document.getElementsByTagName("head")[0];
+    var appendable = document.createElement("script");
+    appendable.id = "appendable";
+    appendable.class = "appendable";
+    var div = document.getElementById("input-block");
+    div.appendChild(appendable);
     switch(input){
         case "help":
-            script.src = "help.js";
+            if(!hasScript(head, "help.js")){
+                addScript(head, "help.js");
+            } else{
+                appendable.innerHTML = "help()";
+            }
             break;
         case  "clear":
-            script.src = "reload.js";
+            if(!hasScript(head, "reload.js")){
+                addScript(head, "reload.js");
+            } else{
+                appendable.innerHTML = "startreload()";
+            }
             break;
         case "about":
-            script.src = "about.js";
+            if(!hasScript(head, "about.js")){
+                addScript(head, "about.js");
+            } else{
+                appendable.innerHTML = "about();";
+            }
             break;
         case "contact":
-            script.src = "contact.js";
+            if(!hasScript(head, "contact.js")){
+                addScript(head, "contact.js");
+            } else{
+                appendable.innerHTML = "contact()";
+            }
             break;
         case "previouswork":
-            script.src = "previouswork.js";
+            if(!hasScript(head, "previouswork.js")){
+                addScript(head, "previouswork.js");
+            }
+            else{
+                appendable.innerHTML = "previouswork()";
+            }
             break;
         case "exit":
             window.close();
             break;
         case "rain":
-            script.src = "rainstart.js";
+            if(!hasScript(head, "rainstart.js")){
+                addScript(head, "rainstart.js");
+            } else{
+                appendable.innerHTML = "rainstart()";
+            }
             break;
         default:
-            script.src = "default.js"
+            if(!hasScript(head, "default.js")){
+                addScript(head, "default.js");
+            } else{
+                appendable.innerHTML = "defaultprint()";
+            }
     }
 }
 function getInput(){
@@ -117,4 +151,42 @@ function reset(){
     input.appendChild(newBlinker);
     input.appendChild(newAppendable);
     window.scrollTo(0,document.body.scrollHeight);
+}
+
+function hasScript(object, script){
+    scripts = object.getElementsByTagName("script");
+    for(var i = 0; i < scripts.length; i++){
+        existingscript = scripts[i].src.match(/(\w+\.{1}js)/g)[0];
+        if (existingscript === script) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function addScript(object, script){
+    var newscript = document.createElement("script");
+    newscript.src = script;
+    newscript.defer = "true";
+    object.appendChild(newscript);
+}
+
+function stopRain() {
+    if(stopRainVar !== null){
+        stopRainVar = true;
+        var head = document.getElementsByTagName("head")[0];
+        var resetDiv = document.getElementById("reset");
+        for(var i = 0; i < resetDiv.length; i++){
+            if(resetDiv[i].name === "reset"){
+                resetDiv[i].value = "true"; break;
+            }
+        }
+        if(!hasScript(head, "reload.js")){
+            addScript(head, "reload.js");
+        } else{
+            var script = document.createElement("script");
+            script.innerHTML = "startreload();";
+            resetDiv.appendChild(script);
+        }
+    }
 }

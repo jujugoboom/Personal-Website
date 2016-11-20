@@ -13,6 +13,7 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 var rainSoundStart = false;
+var stopRainVar = false;
 var rainSound = null;
 var width = 0;
 var height = 0;
@@ -74,9 +75,11 @@ function Rain(X, Y, nombre) {
 }
 
 function explosion(X, Y, couleur, nombre) {
-    if(!rainSoundStart){
-        rainSound.play();
-        rainSoundStart = !rainSoundStart;
+    if (rainSound) {
+        if(!rainSoundStart){
+            rainSound.play();
+            rainSoundStart = !rainSoundStart;
+        }
     }
 	if (!nombre) {
 		nombre = nombrebase;
@@ -220,16 +223,11 @@ window.onload = function() {
     rainSound = document.getElementById("rainSound")
 };
 
-(function boucle() {
-	requestAnimFrame(boucle);
-	update();
-	rendu(ctx);
-})();
 
-function stopRain() {
-    var resetDiv = document.getElementById("reset")
-    var script = document.createElement("script");
-    script.type = 'text/javascript';
-    script.src = "reload.js";
-    resetDiv.appendChild(script);
-}
+(function boucle() {
+	if(!stopRainVar){
+		requestAnimFrame(boucle);
+		update();
+		rendu(ctx);
+	}
+})();
