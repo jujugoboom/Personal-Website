@@ -187,3 +187,22 @@ function stopRain() {
         }
     }
 }
+
+function appendText(text, e){
+    e.innerHTML = e.innerHTML.concat(text);
+}
+
+function inputText(text){
+    var e = document.getElementById("text");
+    (function loop(text, e, i){
+	setTimeout(function(){
+	    appendText(text.charAt(i), e); 
+	    if(i++ < text.length){
+	        loop(text, e, i);
+	    }else{
+		setTimeout(doInput(text), 100);
+ 	    }
+	}, 100)
+    })(text, e, 0);
+}
+
